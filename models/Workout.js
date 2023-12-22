@@ -21,6 +21,9 @@ const WorkoutSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
+        notes: {
+            type: String,
+        },
         createdBy: {
             type: mongoose.Types.ObjectId,
             ref: "User",
