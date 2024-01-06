@@ -40,7 +40,7 @@ const createWorkout = async (req, res) => {
 
 const updateWorkout = async (req, res) => {
     const {
-        body: { workoutType, duration },
+        body: { workoutType, duration, intensity, indoor, completed },
         user: { userId },
         params: { id: workoutId },
     } = req;
@@ -52,7 +52,8 @@ const updateWorkout = async (req, res) => {
     }
     const workout = await Workout.findByIdAndUpdate(
         { _id: workoutId, createdBy: userId },
-        req.body,
+        { workoutType, duration, intensity, completed, indoor },
+        // req.body,
         { new: true, runValidators: true }
     );
     if (!workout) {

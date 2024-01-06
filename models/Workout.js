@@ -29,6 +29,14 @@ const WorkoutSchema = new mongoose.Schema(
             ref: "User",
             required: [true, "Please provide user"],
         },
+        indoor: {
+            type: Boolean,
+            default: false,
+        },
+        completed: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );

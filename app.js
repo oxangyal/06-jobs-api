@@ -1,20 +1,27 @@
+const express = require("express");
+const app = express();
+
 require("dotenv").config();
 require("express-async-errors");
 
 //extra security packages
-const helmet = require('helmet');
-const cors = require('cors')
-const xss = require('xss-clean');
+const helmet = require("helmet");
+const cors = require("cors");
+const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
+// app.get("/", (req, res) => {
+//     res.send('<h1>Workout API</h1><a href="/workout-docs">Documentation</a>');
+// });
 
+app.use(express.static("public"));
 // //Swagger
 // const swaggerUI = require("swagger-ui-express");
 // const YAML = require("yamljs");
 // const swaggerDocument = YAML.load("./swagger.yaml");
 
-const express = require("express");
-const app = express();
+// const express = require("express");
+// const app = express();
 
 //connectDB
 const connectDB = require("./db/connect");
@@ -35,7 +42,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(helmet())
+app.use(helmet());
 app.use(cors());
 app.use(xss());
 //routes
