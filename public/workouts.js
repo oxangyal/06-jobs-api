@@ -7,6 +7,7 @@ import {
     token,
 } from "./index.js";
 
+import { deleteWorkout } from "./delete.js";
 import { showAddEdit } from "./addEdit.js";
 import { showLoginRegister } from "./loginRegister.js";
 
@@ -30,9 +31,29 @@ export const handleWorkouts = () => {
                 message.textContent = "You have been logged off.";
                 workoutsTable.replaceChildren([workoutsTableHeader]);
                 showLoginRegister();
+                } else if (e.target.classList.contains("editButton")) {
+                message.textContent = "";
+                showAddEdit(e.target.dataset.id);
+                } else if (e.target.classList.contains("deleteButton")) {
+                const workoutIdToDelete = e.target.dataset.id;
+                deleteWorkoutHandler(workoutIdToDelete);
             }
         }
     });
+};
+
+const deleteWorkoutHandler = async (workoutId) => {
+    enableInput(false);
+
+    try {
+        await deleteWorkout(workoutId);
+        showWorkouts();
+    } catch (err) {
+        console.log(err);
+        message.textContent = "A communication error occurred.";
+    }
+
+    enableInput(true);
 };
 
 export const showWorkouts = async () => {
@@ -95,3 +116,5 @@ export const showWorkouts = async () => {
     enableInput(true);
     setDiv(workoutsDiv);
 };
+
+

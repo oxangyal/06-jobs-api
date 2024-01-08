@@ -40,11 +40,13 @@ const createWorkout = async (req, res) => {
 
 const updateWorkout = async (req, res) => {
     const {
-        body: { workoutType, duration, intensity, indoor, completed },
+        body: { workoutType, duration, intensity, indoor, notes, completed },
         user: { userId },
         params: { id: workoutId },
     } = req;
 
+    console.log("Bububu");
+    console.log(req.body);
     if (workoutType === "" || duration === "") {
         throw new BadRequestError(
             "Workout type or Duration fields cannot be empty"
@@ -52,7 +54,7 @@ const updateWorkout = async (req, res) => {
     }
     const workout = await Workout.findByIdAndUpdate(
         { _id: workoutId, createdBy: userId },
-        { workoutType, duration, intensity, completed, indoor },
+        { workoutType, duration, intensity, indoor, notes, completed },
         // req.body,
         { new: true, runValidators: true }
     );
@@ -67,7 +69,8 @@ const deleteWorkout = async (req, res) => {
         user: { userId },
         params: { id: workoutId },
     } = req;
-
+console.log("Bububu");
+console.log(req.body);
     const workout = await Workout.findByIdAndRemove({
         _id: workoutId,
         createdBy: userId,
